@@ -26,9 +26,9 @@ socket.on('connect', () => {
   console.log('[INFO]: Welcome to the game');
   console.log('Enter your name: ')
   rl.once('line', (input) => {
-    const name = input || randomNickname;
-    console.log(`Hello, ${name}`);
-    socket.emit('join-game', name);
+    nickname = input || randomNickname;
+    console.log(`Hello, ${nickname}`);
+    socket.emit('join-game', nickname);
   });
 });
 
@@ -40,15 +40,16 @@ socket.on('attempt', (input) => {
   console.log(input);
 });
 
-socket.on('hello', () => {
+socket.on('game-start', () => {
+  console.log('Welcome to the game! We\'ll let you know when the next round starts.')
   rl.on('line', (input) => {
     if (input) {
-      socket.emit('attempt', (input));
+      socket.emit('attempt', input, nickname);
     }
   });
 });
 
-socket.on('word-switch', (word, player) => {
+socket.on('word-switch', (word) => {
   console.log('The word has changed!');
   console.log('The new word is -', word);
 });
