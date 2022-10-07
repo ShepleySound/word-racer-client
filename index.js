@@ -1,7 +1,5 @@
 'use strict';
 
-const randomNickname = 'Random Nickname12345'
-
 require('dotenv').config();
 const readline = require('readline');
 const rl = readline.createInterface({
@@ -12,12 +10,10 @@ const rl = readline.createInterface({
 const io = require('socket.io-client');
 const socket = io(process.env.SERVER_URL || 'http://localhost:3001');
 
-let nickname = null;
-
-// rl.once('line', (input) => {
-//   return input || randomNickname;
-// });
-
+const player = {
+  username: null,
+  score: null,
+};
 
 console.log('Connecting...')
 socket.on('connect', () => {
@@ -26,25 +22,25 @@ socket.on('connect', () => {
   console.log('[INFO]: Welcome to the game');
   console.log('Enter your name: ');
   rl.once('line', (input) => {
-    nickname = input || randomNickname;
-    console.log(`Hello, ${nickname}`);
-    socket.emit('join-game', nickname);
+    socket.emit('join-game', input);
   });
 });
 
-socket.on('broadcast-joined-event', (player) => {
-  console.log(`${player} joined the server!`);
+socket.on('broadcast-joined-event', (username) => {
+  console.log(`${username} joined the server!`);
 });
 
 socket.on('attempt', (input) => {
   console.log(input);
 });
 
-socket.on('game-start', () => {
+socket.on('game-start', (username) => {
+  player.username = username;
+  console.log(`Hello, ${player.username}`);
   console.log('Welcome to the game! We\'ll let you know when the next round starts.')
   rl.on('line', (input) => {
     if (input) {
-      socket.emit('attempt', input, nickname);
+      socket.emit('attempt', input, player.username);
     }
   });
 });
@@ -55,9 +51,14 @@ socket.on('word-switch', (word) => {
 });
 
 socket.on('success', (score) => {
+  player.score = score;
   console.log('Win! Your score is now:', score);
 });
 
-socket.on('broadcast-success', (player) => {
-  console.log(`${player} won this round!`);
+/**
+ * Should only be received if someone else wins.
+ * So username should refer to a different user.
+ */
+socket.on('broadcast-success', (username) => {
+  console.log(`${username} won this round!`);
 });
