@@ -54,8 +54,8 @@ socket.on('word-switch', (word) => {
   console.log('The new word is -', word);
 });
 
-socket.on('success', () => {
-  console.log('Win!');
+socket.on('success', (score) => {
+  console.log('Win! Your score is now:', score);
 });
 
 socket.on('broadcast-success', (player) => {
