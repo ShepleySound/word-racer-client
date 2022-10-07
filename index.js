@@ -24,7 +24,7 @@ socket.on('connect', () => {
   // nickname = process.argv[2];
   // console.log(getName());
   console.log('[INFO]: Welcome to the game');
-  console.log('Enter your name: ')
+  console.log('Enter your name: ');
   rl.once('line', (input) => {
     nickname = input || randomNickname;
     console.log(`Hello, ${nickname}`);
