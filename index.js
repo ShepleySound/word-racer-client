@@ -32,6 +32,31 @@ socket.on('connect', () => {
   });
 });
 
-socket.on('joined-event', (name) => {
-  console.log(`${name} joined the server!`);
+socket.on('broadcast-joined-event', (player) => {
+  console.log(`${player} joined the server!`);
+});
+
+socket.on('attempt', (input) => {
+  console.log(input);
+});
+
+socket.on('hello', () => {
+  rl.on('line', (input) => {
+    if (input) {
+      socket.emit('attempt', (input));
+    }
+  });
+});
+
+socket.on('word-switch', (word, player) => {
+  console.log('The word has changed!');
+  console.log('The new word is -', word);
+});
+
+socket.on('success', () => {
+  console.log('Win!');
+});
+
+socket.on('broadcast-success', (player) => {
+  console.log(`${player} won this round!`);
 });
