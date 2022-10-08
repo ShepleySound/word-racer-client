@@ -10,6 +10,7 @@
   "license": "MIT",
   "keywords": [],
   "dependencies": {
+    "chalk": "^4.1.2",
     "dotenv": "^16.0.3",
     "socket.io-client": "^4.5.2"
   }
