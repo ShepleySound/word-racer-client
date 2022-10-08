@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+const chalk = require('chalk');
 const readline = require('readline');
 const rl = readline.createInterface({
   input: process.stdin,
@@ -19,8 +20,8 @@ console.log('Connecting...')
 socket.on('connect', () => {
   // nickname = process.argv[2];
   // console.log(getName());
-  console.log('[INFO]: Welcome to the game');
-  console.log('Enter your name: ');
+  console.log(chalk.green('Welcome to the game'));
+  console.log(chalk.magenta('Enter your name: '));
   rl.once('line', (input) => {
     socket.emit('join-game', input);
   });
@@ -37,7 +38,7 @@ socket.on('attempt', (input) => {
 socket.on('game-start', (username) => {
   player.username = username;
   console.log(`Hello, ${player.username}`);
-  console.log('Welcome to the game! We\'ll let you know when the next round starts.')
+  console.log('Welcome to the game! We\'ll let you know when the next round starts.');
   rl.on('line', (input) => {
     if (input) {
       socket.emit('attempt', input, player.username);
@@ -52,7 +53,7 @@ socket.on('word-switch', (word) => {
 
 socket.on('success', (score) => {
   player.score = score;
-  console.log('Win! Your score is now:', score);
+  console.log(chalk.green('Win! Your score is now:', score));
 });
 
 /**
