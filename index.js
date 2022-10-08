@@ -16,10 +16,8 @@ const player = {
   score: null,
 };
 
-console.log('Connecting...')
+console.log('Connecting...');
 socket.on('connect', () => {
-  // nickname = process.argv[2];
-  // console.log(getName());
   console.log(chalk.green('Welcome to the game'));
   console.log(chalk.magenta('Enter your name: '));
   rl.once('line', (input) => {
