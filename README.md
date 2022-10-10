@@ -6,8 +6,6 @@ Word Racer is a CLI-based typing game created using Socket.IO. The server random
 
 Once connected, the client will first ask for a name. Once a name is provided, the game will start, and the player will receive a notification each time the round changes. To win the round, the player must type the word before another player, or before the server sends a new word.
 
-*NOTE: In the application's current state, the server and clients must all be ran on a single host in different terminal sessions.*
-
 Author: [Robert Shepley](https://github.com/shepleysound), [Timothee Odushina](https://github.com/timothee2022)
 <!-- Replace URL's and add more necessary links -->
 <!-- - [Tests Report]()
@@ -20,7 +18,15 @@ Author: [Robert Shepley](https://github.com/shepleysound), [Timothee Odushina](h
 
 To install/run the application, you will need to have Node.js and npm installed. For directions, please reference the [npm documentation.](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
-- Clone the repository to your local machine, then run the following commands in your terminal -
+- Clone the repository to your local machine
+- Create a file called `.env` in the cloned directory and fill it with the following lines -
+
+  ```text
+  PORT=3001
+  SERVER_URL=https://rsto-word-racer-server.herokuapp.com/
+  ```
+
+- Run the following commands in your terminal -
 
   ```bash
     npm install
