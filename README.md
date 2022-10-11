@@ -22,8 +22,7 @@ To install/run the application, you will need to have Node.js and npm installed.
 - Create a file called `.env` in the cloned directory and fill it with the following lines -
 
   ```text
-  PORT=3001
-  SERVER_URL=https://rsto-word-racer-server.herokuapp.com/
+    SERVER_URL=http://word-racer-v2-dev.us-west-2.elasticbeanstalk.com
   ```
 
 - Run the following commands in your terminal -
